@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -56,7 +58,6 @@ public class MorseFlash extends ApplicationAdapter {
 		font = generator.generateFont(parameter);
 		generator.dispose();
 		
-		//font = new BitmapFont(Gdx.files.internal("arial-15.fnt"));
 		font.setMarkupEnabled(true);
 
 		background = new Texture("fondo.png");
@@ -83,15 +84,18 @@ public class MorseFlash extends ApplicationAdapter {
 		karaokeLED.setPosition(20.5f, 1470);
 		stage.addActor(karaokeLED);
 		karaokeLED.focus();
-		//karaokeLED.
 		
-		/*karaokeLED.addListener(new InputListener() {
-			@Override
-			public boolean keyDown(InputEvent event, int keycode) {
+		karaokeLED.setKaraokeLEDFilter(new TextFieldFilter() {
+			// Accepts a-z characters
+			public  boolean acceptChar(TextField textField, char c) {
+				System.out.println("HELLO");
 				
+				c = Character.toLowerCase(c);
+				if (c >= 'a' || c <= 'z')
+					return true;
 				return false;
 			}
-		})*/;
+		});
 		
 		button.addListener( new InputListener() {
 			@Override
@@ -105,9 +109,9 @@ public class MorseFlash extends ApplicationAdapter {
 				return true;
 			};
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int b) {
+			/*public void touchUp(InputEvent event, float x, float y, int pointer, int b) {
 				//button.addAction(scaleTo(1, 1, .5f));
-			};
+			};*/
 		});
 
 	}
@@ -133,8 +137,10 @@ public class MorseFlash extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		camResolver.update(Gdx.graphics.getDeltaTime());
-		stage.act(Gdx.graphics.getDeltaTime());
+		float delta = Gdx.graphics.getDeltaTime();
+		
+		camResolver.update(delta);
+		stage.act(delta);
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();

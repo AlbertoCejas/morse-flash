@@ -64,27 +64,6 @@ public class AndroidCameraResolver implements CameraResolver {
 			_targetTime -= delta;
 			_targetTime = Math.max(0, _targetTime);
 		}
-		
-		/*if(_targetTime == 0) {
-			if(!queue.isEmpty()) {
-				Item i = queue.poll();
-				if(i._light) {
-					turnOnFlash(i._time);
-				}
-				else {
-					turnOffFlash(i._time);
-					System.out.println("HOLA");
-					_app.colorLetter();
-				}
-			}
-			else if(_camera.getParameters().getFlashMode() != Parameters.FLASH_MODE_OFF) {
-				turnOffFlash();
-			}
-		}
-		else if(_targetTime > 0) {
-			_targetTime -= delta;
-			_targetTime = Math.max(0, _targetTime);
-		}*/
 	}
 	
 	@Override
@@ -140,7 +119,7 @@ public class AndroidCameraResolver implements CameraResolver {
 	
 	@Override
 	public void connectToCamera() {
-		_camera = Camera.open();
+		_camera = Camera.open(); // Must deal with null return
 		_param = _camera.getParameters();
 	}
 	
@@ -154,7 +133,7 @@ public class AndroidCameraResolver implements CameraResolver {
 	
 	@Override
 	public void dispose() {
-		releaseCamera();
+		//releaseCamera();
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -47,25 +48,11 @@ public class KaraokeLED extends Table {
 		_textField.setWidth(80f);
 		_textField.setAlignment(Align.center);
 		
-		_textField.setTextFieldFilter(new TextFieldFilter() {
-			// Accepts a-z characters
-			public  boolean acceptChar(TextField textField, char c) {
-				c = Character.toLowerCase(c);
-				if (c >= 'a' || c <= 'z')
-					return true;
-				return false;
-			}
-		});
-		
 		setHeight(320f);
 		setWidth(1040f);
 		
 		invalidateHierarchy();
-		
-		row().width(800f).height(320f).center();
-		add(_textField);
-		
-		colorMode = false;
+		setColorMode(false);
 	}
 	
 	public String getText() {
@@ -119,6 +106,14 @@ public class KaraokeLED extends Table {
 		validate();
 
 		super.draw(batch, parentAlpha);
+	}
+	
+	public void setKaraokeLEDListener (TextFieldListener listener) {
+		_textField.setTextFieldListener(listener);
+	}
+	
+	public void setKaraokeLEDFilter (TextFieldFilter filter) {
+		_textField.setTextFieldFilter(filter);
 	}
 	
 	static public class KaraokeLEDStyle extends TextFieldStyle{
