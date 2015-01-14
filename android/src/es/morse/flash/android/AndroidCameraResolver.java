@@ -44,10 +44,8 @@ public class AndroidCameraResolver implements CameraResolver {
 			if(!queue.isEmpty()) { // If there is something to process
 				Letter l = queue.element();
 				Item current = l._items.poll();
-				if(current._light) {
-					System.out.println("TIEMPO LUZ: " + current._time);
+				if(current._light) 
 					turnOnFlash(current._time);
-				}
 				else {
 					turnOffFlash(current._time);
 					if(l._items.isEmpty()) {

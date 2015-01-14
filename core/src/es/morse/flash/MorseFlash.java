@@ -43,7 +43,7 @@ public class MorseFlash extends ApplicationAdapter {
 	private Stage stage;
 
 	@Override
-	public void create () {
+	public void create () {		
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
@@ -87,11 +87,10 @@ public class MorseFlash extends ApplicationAdapter {
 		
 		karaokeLED.setKaraokeLEDFilter(new TextFieldFilter() {
 			// Accepts a-z characters
-			public  boolean acceptChar(TextField textField, char c) {
-				System.out.println("HELLO");
-				
+			@Override
+			public  boolean acceptChar(TextField textField, char c) {				
 				c = Character.toLowerCase(c);
-				if (c >= 'a' || c <= 'z')
+				if (c >= 'a' && c <= 'z')
 					return true;
 				return false;
 			}
@@ -100,7 +99,6 @@ public class MorseFlash extends ApplicationAdapter {
 		button.addListener( new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int b) {
-				//button.addAction(scaleTo(.9f, .9f, .1f));
 				if(!camResolver.isProccessing()) {
 					coloredCharacters = 0;
 					flashText(karaokeLED.getText());
@@ -108,10 +106,6 @@ public class MorseFlash extends ApplicationAdapter {
 					
 				return true;
 			};
-
-			/*public void touchUp(InputEvent event, float x, float y, int pointer, int b) {
-				//button.addAction(scaleTo(1, 1, .5f));
-			};*/
 		});
 
 	}

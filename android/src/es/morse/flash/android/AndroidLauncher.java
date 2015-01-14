@@ -10,10 +10,11 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		
 		MorseFlash mf = new MorseFlash();
-		mf.setCameraResolver(new AndroidCameraResolver(getApplicationContext(), mf));
+		mf.setCameraResolver(new AndroidCameraResolver(getApplicationContext(), mf));		
 		
 		initialize(mf, config);
 	}

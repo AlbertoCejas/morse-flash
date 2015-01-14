@@ -51,6 +51,7 @@ public class TextToMorse {
 	static {
 		morseAlphabet = new MorseAlphabet();
 		dictionary = new HashMap<String, Letter>();
+		//Field[] allFields = ClassReflection.getDeclaredFields(MorseAlphabet.class);
 		Field[] allFields = MorseAlphabet.class.getDeclaredFields();
 		Double[] sequence;
 		
